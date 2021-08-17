@@ -4,7 +4,9 @@ import { useFindUsers } from '../hooks/useFindUsers';
 
 function Users() {
 
-    const { data, loading, error } = useFindUsers();
+    const { state } = useFindUsers();
+
+    const { data, loading, error } = state;
 
     const Item = ({ data }) => (
 		<View style={styles.item}>
