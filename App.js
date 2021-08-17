@@ -6,7 +6,19 @@ import { useFindUsers } from './hooks/useFindUsers';
 
 export default function App() {
 
-  const data = useFindUsers();
+  const { data, loading, error } = useFindUsers();
+
+  if(loading) return (
+		<View style={styles.item}>
+			<Text style={styles.title}>Carregando...</Text>
+		</View>
+  )
+
+  if(error) return (
+		<View style={styles.item}>
+			<Text style={styles.error}>{error}</Text>
+		</View>
+  )
 
 	const Item = ({ data }) => (
 		<View style={styles.item}>
@@ -15,22 +27,6 @@ export default function App() {
 );
 
 const renderItem = ({ item }) => <Item data={item.username + " : " + item.name} />;
-
-async function listUsers() {
-
-	try {
-    		const response = await axios.get("https://jsonplaceholder.typicode.com/users");
-		setData(response.data);
-  	} 
-	catch (err) {
-		console.log(err);
-  	}
-}
-
-useEffect(() => {
-	listUsers();
-}, []);
-
 
 return (
 	<View style={styles.container}>
@@ -60,6 +56,7 @@ const styles = StyleSheet.create({
 		padding: 20,
 	},
 	error: {
+    backgroundColor: "#fff",
 		color: "#FF0000",
 		fontSize: 14,
 		textAlign: "center",
