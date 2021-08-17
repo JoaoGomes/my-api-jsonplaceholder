@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { useFindUsers } from '../hooks/useFindUsers';
+import { useFindUsersReducer} from '../hooks/useFindUsersReducer';
 
 function Users() {
 
-    const { state } = useFindUsers();
+    const { state } = useFindUsersReducer();
 
     const { data, loading, error } = state;
 
